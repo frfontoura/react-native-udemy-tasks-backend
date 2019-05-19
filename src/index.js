@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
+const db = require("./config/db");
+const consign = require("consign");
 
-app.use(bodyParser.json());
+consign()
+  .then("./src/config/middlewares.js")
+  .into(app);
+
+app.db = db;
 
 app.get("/", (req, res) => {
   res.status(200).send("Tasks Backend");
